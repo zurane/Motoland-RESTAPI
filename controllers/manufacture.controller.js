@@ -1,7 +1,7 @@
 
-const prisma = require('../lib/prisma');
+import prisma from '../lib/prisma.js';
 // *Returns all models for a specific manufacturer
-const getManufacturer = async (req, res) => {
+const getManufacturerModels = async (req, res) => {
     const { name } = req.params;
     try {
         const models = await prisma.vehicleModel.findMany({
@@ -38,6 +38,4 @@ const getManufacturer = async (req, res) => {
     }
 };
 
-module.exports = {
-    getManufacturer,
-};
+export default getManufacturerModels;

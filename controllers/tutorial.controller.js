@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma');
+import prisma from '../lib/prisma.js';
 
 /**
  * /tutorials
@@ -6,7 +6,7 @@ const prisma = require('../lib/prisma');
  * - ?category=oil-change
  * - ?modelId=1
  */
-const getAllTutorials = async (req, res) => {
+const getAllModelTutorials = async (req, res) => {
     const { category, modelId } = req.query;
     try {
         const tutorials = await prisma.tutorial.findMany({
@@ -46,6 +46,4 @@ const getAllTutorials = async (req, res) => {
     }
 };
 
-module.exports = {
-    getAllTutorials,
-};
+export default getAllModelTutorials;

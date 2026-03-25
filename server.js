@@ -1,16 +1,15 @@
 // server.js
+import 'dotenv/config';
 
-require('dotenv').config();
+import express, { json } from 'express';
 
-const express = require('express');
-
-const manufacturerRoutes = require('./routes/manufacturerRoutes');
-const modelRoutes = require('./routes/modelRoutes');
-const tutorialRoutes = require('./routes/tutorialRoutes');
+import manufacturerRoutes from './routes/manufacture.route.js';
+import modelRoutes from './routes/model.route.js';
+import tutorialRoutes from './routes/tutorial.route.js';
 
 const app = express();
 
-app.use(express.json());
+app.use(json());
 
 // Register routes
 app.use('/manufacturers', manufacturerRoutes);

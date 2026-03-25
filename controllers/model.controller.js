@@ -1,6 +1,6 @@
-const prisma = require('../lib/prisma');
+import prisma from '../lib/prisma.js';
 //  * Returns all tutorials for a specific vehicle model
-const getModelTutorials = async (req, res) => {
+const getTutorialsByModel = async (req, res) => {
     const { id } = req.params;
     try {
         const tutorials = await prisma.tutorial.findMany({
@@ -32,6 +32,4 @@ const getModelTutorials = async (req, res) => {
     }
 };
 
-module.exports = {
-    getModelTutorials,
-};
+export default getTutorialsByModel;
