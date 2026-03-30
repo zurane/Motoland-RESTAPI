@@ -50,6 +50,8 @@ model Tutorial {
   slug        String      @unique
   videoUrl    String
   difficulty  String
+  description String?
+  estimatedTimeMinutes    Int?
   createdAt   DateTime    @default(now())
 
   modelId     Int

@@ -1,4 +1,4 @@
-import prisma from '../lib/prisma.js';
+import prisma from "../lib/prisma.js";
 //  * Returns all tutorials for a specific vehicle model
 const getTutorialsByModel = async (req, res) => {
     const { id } = req.params;
@@ -13,7 +13,7 @@ const getTutorialsByModel = async (req, res) => {
                         manufacturer: true, // include manufacturer info
                     },
                 },
-                category: true, // include category (oil, brakes, etc.)
+
             },
         });
 
@@ -23,11 +23,11 @@ const getTutorialsByModel = async (req, res) => {
             data: tutorials,
         });
     } catch (error) {
-        console.error('Error fetching tutorials:', error);
+        console.error("Error fetching tutorials:", error);
 
         res.status(500).json({
             success: false,
-            message: 'Server error',
+            message: "Server error",
         });
     }
 };

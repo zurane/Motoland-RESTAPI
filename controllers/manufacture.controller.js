@@ -1,5 +1,4 @@
-
-import prisma from '../lib/prisma.js';
+import prisma from "../lib/prisma.js";
 // *Returns all models for a specific manufacturer
 const getManufacturerModels = async (req, res) => {
     const { name } = req.params;
@@ -10,13 +9,13 @@ const getManufacturerModels = async (req, res) => {
                 manufacturer: {
                     name: {
                         equals: name,
-                        mode: 'insensitive' // Allows all cases VW, vw
-                    }
-                }
+                        mode: "insensitive", // Allows all cases VW, vw
+                    },
+                },
             },
             include: {
-                manufacturer: true
-            }
+                manufacturer: true,
+            },
         });
 
         console.table(models);
@@ -24,16 +23,13 @@ const getManufacturerModels = async (req, res) => {
         res.status(200).json({
             success: true,
             count: models.length,
-            data: models
+            data: models,
         });
-
-
-
     } catch (error) {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: 'Server error'
+            message: "Server error",
         });
     }
 };

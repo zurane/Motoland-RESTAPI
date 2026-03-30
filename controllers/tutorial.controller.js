@@ -14,7 +14,10 @@ const getAllModelTutorials = async (req, res) => {
                 // Filter by category slug if provided
                 category: category
                     ? {
-                        slug: category,
+                        slug: {
+                            equals: category,
+                            mode: 'insensitive',
+                        },
                     }
                     : undefined,
 
