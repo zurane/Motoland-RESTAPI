@@ -1,6 +1,7 @@
 // server.js
 import 'dotenv/config';
 import express, { json } from 'express';
+import cors from 'cors';
 
 import manufacturerRoutes from './routes/manufacture.route.js';
 import modelRoutes from './routes/model.route.js';
@@ -10,6 +11,9 @@ import searchRoutes from './routes/search.route.js';
 const app = express();
 
 app.use(json());
+app.use(cors({
+    origin: 'http://localhost:5173', // Adjust this to your frontend URL
+}));
 
 // Register routes
 app.use('/manufacturers', manufacturerRoutes);
