@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "VehicleModel" ALTER COLUMN "modelEngineSize" SET DATA TYPE DOUBLE PRECISION;

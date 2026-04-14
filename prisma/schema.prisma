@@ -24,15 +24,16 @@ model VehicleModel {
   id              Int           @id @default(autoincrement())
   name            String
   yearFrom        Int?
-  yearTo          Int?
   type            VehicleType?
+  modelEngineSize Float?
+  modelVariant    String?
 
   manufacturerId  Int
   manufacturer    Manufacturer  @relation(fields: [manufacturerId], references: [id])
 
   tutorials       Tutorial[]
 
-  @@unique([name, manufacturerId, yearFrom, yearTo])
+  @@unique([name, manufacturerId, yearFrom])
 }
 
 model Category {
