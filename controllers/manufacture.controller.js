@@ -34,4 +34,25 @@ const getManufacturerModels = async (req, res) => {
     }
 };
 
-export default getManufacturerModels;
+const getAllManufacturers = async (req, res) => {
+    try {
+        const manufacturers = await prisma.manufacturer.findMany({
+            include: {
+                models: true,
+            },
+        });
+        res.status(200).json({
+            success: true,
+            count: manufacturers.length,
+            data: manufacturers,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Server error",
+        });
+    }
+};
+
+export { getManufacturerModels, getAllManufacturers };
