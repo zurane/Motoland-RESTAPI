@@ -3,16 +3,16 @@ import prisma from "../lib/prisma.js";
  * /search?manufacturer=Volkswagen&model=Polo&year=2020&issue=brake
  */
 export const searchCore = async (req, res) => {
-    const { manufacturer, modelName, issue } = req.query;
+    const { manufacturer, modelVariant, issue } = req.query;
 
     try {
         const results = await prisma.tutorial.findMany({
             where: {
                 // Filter by model + manufacturer
                 model: {
-                    name: modelName
+                    modelVariant: modelVariant
                         ? {
-                            equals: modelName,
+                            equals: modelVariant,
                             mode: "insensitive",
                         }
                         : undefined,
