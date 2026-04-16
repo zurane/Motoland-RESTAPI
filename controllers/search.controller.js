@@ -8,22 +8,29 @@ export const searchCore = async (req, res) => {
     try {
         const results = await prisma.tutorial.findMany({
             where: {
-                // Filter by model + manufacturer
-                model: {
-                    modelVariant: {
-                        equals: modelVariant,
-                        mode: "insensitive",
-                    },
-
-                    manufacturer: manufacturer
-                        ? {
-                            name: {
-                                equals: manufacturer,
+                // Filter by exact model variant + manufacturer
+                AND: [
+                    {
+                        model: {
+                            modelVariant: {
+                                equals: modelVariant,
                                 mode: "insensitive",
                             },
+                        },
+                    },
+                    manufacturer
+                        ? {
+                            model: {
+                                manufacturer: {
+                                    name: {
+                                        equals: manufacturer,
+                                        mode: "insensitive",
+                                    },
+                                },
+                            },
                         }
-                        : undefined,
-                },
+                        : {},
+                ],
 
                 OR: issue
                     ? [
