@@ -10,12 +10,10 @@ export const searchCore = async (req, res) => {
             where: {
                 // Filter by model + manufacturer
                 model: {
-                    modelVariant: modelVariant
-                        ? {
-                            equals: modelVariant,
-                            mode: "insensitive",
-                        }
-                        : undefined,
+                    modelVariant: {
+                        equals: modelVariant,
+                        mode: "insensitive",
+                    },
 
                     manufacturer: manufacturer
                         ? {
