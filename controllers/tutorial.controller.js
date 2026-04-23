@@ -1,29 +1,37 @@
 import prisma from '../lib/prisma.js';
 
 /**
- * /tutorials
- * Optional query filters:
- * - ?category=oil-change
- * - ?modelId=1
+ * /tutorials/:tutorialId/:model/:slug
  */
 const getAllModelTutorials = async (req, res) => {
-    const { category, modelId } = req.query;
-    try {
-        const tutorials = await prisma.tutorial.findMany({
-            where: {
-                // Filter by category slug if provided
-                category: category
-                    ? {
-                        slug: {
-                            equals: category,
-                            mode: 'insensitive',
-                        },
-                    }
-                    : undefined,
+    const { tutorialId, model, slug } = req.params;
+    const parsedTutorialId = parseInt(tutorialId, 10);
 
-                // Filter by modelId if provided
-                modelId: modelId ? parseInt(modelId) : undefined,
+    //check if tutorialId is a valid number
+    if (Number.isNaN(parsedTutorialId)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Invalid tutorial ID',
+        });
+    }
+
+    try {
+        const tutorial = await prisma.tutorial.findFirst({
+            // Find the tutorial with the matching ID, slug, and model name 
+            where: {
+                id: parsedTutorialId,
+                slug: {
+                    equals: slug,
+                    mode: 'insensitive',
+                },
+                model: {
+                    name: {
+                        equals: model,
+                        mode: 'insensitive',
+                    },
+                },
             },
+            //include the model and manufacturer details in the response data object
             include: {
                 model: {
                     include: {
@@ -33,11 +41,17 @@ const getAllModelTutorials = async (req, res) => {
                 category: true,
             },
         });
+        
+        if (!tutorial) {
+            return res.status(404).json({
+                success: false,
+                message: 'Tutorial not found',
+            });
+        }
 
         res.status(200).json({
             success: true,
-            count: tutorials.length,
-            data: tutorials,
+            data: tutorial,
         });
     } catch (error) {
         console.error('Error fetching tutorials:', error);

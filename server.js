@@ -6,7 +6,7 @@ import cors from 'cors';
 import manufacturerRoutes from './routes/manufacture.route.js';
 import categoryRoutes from './routes/category.route.js';
 import modelRoutes from './routes/model.route.js';
-import tutorialRoutes from './routes/tutorial.route.js';
+import tutorialRoute from './routes/tutorial.route.js';
 import searchRoutes from './routes/search.route.js';
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(cors({
 // Register routes
 app.use('/manufacturers', manufacturerRoutes);
 app.use('/models', modelRoutes);
-app.use('/tutorials', tutorialRoutes);
+app.use('/tutorials', tutorialRoute);
 app.use('/categories', categoryRoutes);
 app.use('/', searchRoutes);
 
