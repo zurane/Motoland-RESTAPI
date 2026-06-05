@@ -17,6 +17,7 @@ model User {
 model Manufacturer {
   id      Int             @id @default(autoincrement())
   name    String          @unique
+  logoUrl String?
   models  VehicleModel[]
 }
 
